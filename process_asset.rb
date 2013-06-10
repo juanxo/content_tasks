@@ -1,9 +1,11 @@
+require 'platform'
 require 'find'
 require 'colored'
-require 'win32console'
 require 'optparse'
 require 'yuicompressor'
 require 'uglifier'
+
+require 'win32console' if PLATFORM_IS_WINDOWS
 
 
 options = {}

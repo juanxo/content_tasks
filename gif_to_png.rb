@@ -1,6 +1,8 @@
+require 'platform'
 require 'find'
 require 'colored'
-require 'win32console'
+
+require 'win32console' if PLATFORM_IS_WINDOWS
 
 base_dir = ARGV[0]
 
@@ -59,7 +61,7 @@ if File.exists?(base_dir) && File.directory?(base_dir)
 
         png_path = "#{$1}#{$3}.png"
         png_tmp_path = "#{$1}#{$3}.png-new"
-        system("D:/Projects/JSTools/convert.exe \"#{path}\" \"#{png_path}\"")
+        system("convert.exe \"#{path}\" \"#{png_path}\"")
         system("pngcrush -rem alla -reduce -brute -e .png-new \"#{png_path}\" >NUL")
         File.delete(png_path)
         File.rename(png_tmp_path, png_path)

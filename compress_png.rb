@@ -1,6 +1,8 @@
+require 'platform'
 require 'find'
-require 'win32console'
 require 'colored'
+
+require 'win32console' if PLATFORM_IS_WINDOWS
 
 base_dir = ARGV[0]
 
