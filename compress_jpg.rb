@@ -1,4 +1,4 @@
-require 'platform'
+require_relative 'platform'
 require 'find'
 require 'colored'
 

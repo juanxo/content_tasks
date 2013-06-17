@@ -1,8 +1,10 @@
-require 'platform'
+# encoding: UTF8
+
+require_relative 'platform'
 require 'find'
 require 'colored'
 
-require 'win32console' if PLATFORM_IS_WINDOWS
+require 'win32console' if ContentTasks::PLATFORM_IS_WINDOWS
 
 base_dir = ARGV[0]
 
@@ -22,21 +24,24 @@ if File.exists?(base_dir) && File.directory?(base_dir)
       dir_path = $1
       new_path = "#{dir_path}#{file_name}.png-new"
 
-      compressed = system("pngcrush -rem alla -reduce -brute -e .png-new \"#{path}\"")
+      compressed = system("pngcrush -q -rem alla -brute -e .png-new \"#{path}\"")
 
 
       if compressed
 
         new_size = FileTest.size(new_path)
         compress_percentage = (1 - (new_size / original_size.to_f)) * 100.0
-        puts " ( original_size: #{original_size.to_s.red}, new_size: #{new_size.to_s.green}, %compressed: #{("%.2f" % compress_percentage).green.bold}%)"
-        kb_saved += original_size - new_size
+        print " ( original_size: #{original_size.to_s.red}, new_size: #{new_size.to_s.green}, %compressed: #{("%.2f" % compress_percentage).green.bold}%)"
+        if original_size > new_size
+          kb_saved += original_size - new_size
 
-        puts "Deleting old file"
-        deleted = File.delete(path) == 1
-        if deleted
-          puts "Renaming new file"
-          File.rename(new_path, path)
+          deleted = File.delete(path) == 1
+          if deleted
+            File.rename(new_path, path)
+            puts "\u2713".green
+          end
+        else
+          puts "\u2715".red
         end
       else
         puts "#{$?}".red

@@ -1,5 +1,5 @@
 module ContentTasks
 
-  PLATFORM_IS_WINDOWS = RUBY_PLATFORM.contains('mingw')
+  PLATFORM_IS_WINDOWS = RUBY_PLATFORM.include?('mingw')
 
 end
