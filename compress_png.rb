@@ -15,7 +15,7 @@ if File.exists?(base_dir) && File.directory?(base_dir)
   kb_saved = 0
 
   Find.find(base_dir) do |path|
-    if path =~ /\A([\-\.\:\w\s\b\/\\]+(\/|\\){1})([\w\b]+)\.png\z/
+    if path =~ /\A([\-\.\:\w\s\b\/\\]+(\/|\\))([\.\-\w\b]+)\.png\z/
       relative_path = path.slice(base_dir.length..-1)
       print "Compressing #{relative_path.yellow}"
       original_size = FileTest.size(path)

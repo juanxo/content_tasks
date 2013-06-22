@@ -49,7 +49,7 @@ compression_comparator = ->(a,b){
 if File.exists?(base_dir) && File.directory?(base_dir)
 
   Find.find(base_dir) do |path|
-    if path =~ /\A([\-\.\:\w\s\b\/\\]+(\/|\\){1})([\w\b]+)\.gif\z/
+    if path =~ /\A([\-\.\:\w\s\b\/\\]+(\/|\\){1})([\-\.\w\b]+)\.gif\z/
 
       relative_path = path.slice(base_dir.length..-1)
 
